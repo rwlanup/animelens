@@ -57,6 +57,7 @@ export const inputsTheme = (theme: Theme): ThemeOptions => {
       MuiButton: {
         defaultProps: {
           disableFocusRipple: true,
+          disableElevation: true,
           variant: 'contained',
         },
         styleOverrides: {

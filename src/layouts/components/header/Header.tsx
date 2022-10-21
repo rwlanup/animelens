@@ -50,7 +50,7 @@ export const Header: FC = () => {
             >
               <Button
                 variant="text"
-                sx={{ ml: 1 }}
+                sx={{ ml: 1, px: { xs: 1, sm: 2.5 }, py: { xs: 0.5, sm: 1 } }}
               >
                 {navItem.label}
               </Button>

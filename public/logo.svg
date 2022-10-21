@@ -28,7 +28,7 @@
 		</radialGradient>
 	</defs>
 	<circle
-		style="fill: url(#gr); stroke:#fee2e2; stroke-width:10;"
+		style="fill: url(#gr); stroke:#060101; stroke-width:10;"
 		cx="150"
 		cy="150"
 		r="145"

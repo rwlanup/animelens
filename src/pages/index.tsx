@@ -3,6 +3,7 @@ import type { InferGetStaticPropsType, NextPage } from 'next';
 import Head from 'next/head';
 import { AnimeCardList } from '../components/anime-card-list/AnimeCardList';
 import { SEARCH_ANIME } from '../gql/search-anime';
+import { Hero } from '../pages-components/hero/Hero';
 import { PaginatedAnimeList } from '../types/anime';
 import { apolloClient } from '../util/apollo-client';
 
@@ -10,10 +11,15 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ popula
   return (
     <>
       <Head>
-        <title>AnimeLens | A home for every anime information</title>
+        <title>AnimeLens | Find information about your favourite anime</title>
+        <meta
+          name="description"
+          content="Find information about every anime and get up-to date information about trending and popular animes right now"
+        />
       </Head>
+      <Hero />
       <Container
-        maxWidth={false}
+        maxWidth="xl"
         sx={{ py: 5 }}
       >
         <AnimeCardList
@@ -35,21 +41,30 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ popula
 export default Home;
 
 export async function getStaticProps() {
-  const currentYear = new Date().getFullYear();
-  const { data: popularAnimeData } = await apolloClient.query<PaginatedAnimeList>({
-    query: SEARCH_ANIME,
-    variables: { perPage: 12, sort: 'POPULARITY', year: currentYear },
-  });
+  try {
+    const currentYear = new Date().getFullYear();
+    const { data: popularAnimeData } = await apolloClient.query<PaginatedAnimeList>({
+      query: SEARCH_ANIME,
+      variables: { perPage: 12, sort: 'POPULARITY', year: currentYear },
+    });
 
-  const { data: trendingAnimeData } = await apolloClient.query<PaginatedAnimeList>({
-    query: SEARCH_ANIME,
-    variables: { perPage: 12, sort: 'TRENDING', year: currentYear },
-  });
+    const { data: trendingAnimeData } = await apolloClient.query<PaginatedAnimeList>({
+      query: SEARCH_ANIME,
+      variables: { perPage: 12, sort: 'TRENDING', year: currentYear },
+    });
 
-  return {
-    props: {
-      popularAnimes: popularAnimeData.Page.media,
-      trendingAnimes: trendingAnimeData.Page.media,
-    },
-  };
+    return {
+      props: {
+        popularAnimes: popularAnimeData.Page.media,
+        trendingAnimes: trendingAnimeData.Page.media,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        popularAnimes: [],
+        trendingAnimes: [],
+      },
+    };
+  }
 }

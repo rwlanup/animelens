@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { AnimeListItem } from '../../types/anime';
-import { Typography, Grid, Button, Box, BoxProps } from '@mui/material';
+import { Typography, Grid, Button, Box, BoxProps, TypographyProps } from '@mui/material';
 import Link from 'next/link';
 import { AnimeCard } from '../anime-card/AnimeCard';
 
@@ -8,9 +8,10 @@ interface AnimeCardListProps extends BoxProps {
   animes: AnimeListItem[];
   title?: string;
   url?: string;
+  TitleProps?: TypographyProps;
 }
 
-export const AnimeCardList: FC<AnimeCardListProps> = ({ animes, title, url, ...otherProps }) => {
+export const AnimeCardList: FC<AnimeCardListProps> = ({ animes, title, url, TitleProps, ...otherProps }) => {
   if (animes.length === 0) return null;
 
   return (
@@ -25,8 +26,8 @@ export const AnimeCardList: FC<AnimeCardListProps> = ({ animes, title, url, ...o
           <Grid item>
             <Typography
               variant="h2"
-              component="h1"
               fontWeight="Bold"
+              {...TitleProps}
             >
               {title}
             </Typography>
