@@ -1,16 +1,20 @@
 import type { FC } from 'react';
 import { AppBar, Toolbar, Box, Button } from '@mui/material';
-import Link from 'next/link';
+import Link, { LinkProps } from 'next/link';
 import Image from 'next/image';
 
-const NAV_ITEMS: { label: string; link: string }[] = [
+const NAV_ITEMS: { label: string; link: LinkProps['href'] }[] = [
+  {
+    label: 'Top',
+    link: { pathname: '/search', query: { sort: 'SCORE_DESC' } },
+  },
   {
     label: 'Trending',
-    link: '/trending',
+    link: { pathname: '/search', query: { sort: 'TRENDING' } },
   },
   {
     label: 'Popular',
-    link: '/popular',
+    link: { pathname: '/search', query: { sort: 'POPULARITY' } },
   },
 ];
 

@@ -12,5 +12,5 @@ a {
 #nprogress .bar {
   z-index: 1130 !important;
   background-color: #dc2626 !important;
-  height: 4px;
+  height: 4px !important;
 }

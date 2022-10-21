@@ -1,13 +1,13 @@
 import type { FC } from 'react';
 import { AnimeListItem } from '../../types/anime';
 import { Typography, Grid, Button, Box, BoxProps, TypographyProps } from '@mui/material';
-import Link from 'next/link';
+import Link, { LinkProps } from 'next/link';
 import { AnimeCard } from '../anime-card/AnimeCard';
 
 interface AnimeCardListProps extends BoxProps {
   animes: AnimeListItem[];
   title?: string;
-  url?: string;
+  url?: LinkProps['href'];
   TitleProps?: TypographyProps;
 }
 

@@ -1,19 +1,16 @@
-import { FC, FormEvent, useState } from 'react';
-import { Box, Container, TextField, Button, Grid, Typography } from '@mui/material';
+import { FC } from 'react';
+import { Box, Container, Grid, Typography } from '@mui/material';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { SearchForm } from '../../components/search-form/SearchForm';
 
 export const Hero: FC = () => {
   const router = useRouter();
-  const [searchText, setSearchText] = useState('');
-  const onSubmit = (event: FormEvent): void => {
-    event.preventDefault();
-    if (searchText.trim().length > 0) {
-      router.push({
-        query: { q: searchText },
-        pathname: '/search',
-      });
-    }
+  const onSubmit = (value: string): void => {
+    router.push({
+      query: { q: value },
+      pathname: '/search',
+    });
   };
 
   return (
@@ -40,33 +37,7 @@ export const Hero: FC = () => {
                 </Typography>
               </Typography>
             </Box>
-            <Box
-              sx={{ display: 'flex', pb: 5 }}
-              component="form"
-              onSubmit={onSubmit}
-            >
-              <TextField
-                value={searchText}
-                onChange={(event) => setSearchText(event.target.value)}
-                placeholder="Search anime"
-                InputProps={{
-                  sx: {
-                    borderTopRightRadius: 0,
-                    borderBottomRightRadius: 0,
-                    input: { py: 1.75, pl: 2.5 },
-                    '.MuiOutlinedInput-notchedOutline': {
-                      borderColor: 'primary.main',
-                    },
-                  },
-                }}
-              />
-              <Button
-                sx={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
-                type="submit"
-              >
-                Search
-              </Button>
-            </Box>
+            <SearchForm onSubmit={onSubmit} />
           </Grid>
           <Grid
             item
