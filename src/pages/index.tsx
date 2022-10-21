@@ -80,6 +80,7 @@ export const getStaticProps: GetStaticProps<StaticPropsReturns> = async () => {
         trendingAnimes: trendingAnimeData.Page.media,
         topAnimes: topAnimeData.Page.media,
       },
+      revalidate: 86400, // 86400 = 24*60*60 seconds = 1day
     };
   } catch (error) {
     return {

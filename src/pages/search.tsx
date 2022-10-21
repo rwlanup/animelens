@@ -10,7 +10,7 @@ import { PaginatedAnimeList, SearchAnimeVariables } from '../types/anime';
 import Link from 'next/link';
 import { ChevronLeftOutlined, ChevronRightOutlined } from '@mui/icons-material';
 
-const SearchPage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = ({ isError, data }) => {
+const SearchPage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = ({ data }) => {
   const { query, push } = useRouter();
   const currentAnimeType = useMemo((): string => {
     switch (query.sort) {
@@ -24,8 +24,6 @@ const SearchPage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps
         return 'your favourite';
     }
   }, [query.sort]);
-
-  if (!data || isError) return <div>Error</div>;
 
   const onSearchSubmit = (value: string): void => {
     push({
@@ -85,41 +83,24 @@ const SearchPage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps
 };
 
 export default SearchPage;
+export const getServerSideProps: GetServerSideProps<{ data: PaginatedAnimeList }> = async ({ query }) => {
+  const { sort, q, page } = query;
 
-type GetServerSideReturn =
-  | {
-      isError: false;
-      data: PaginatedAnimeList;
-    }
-  | { isError: true; data: null };
-export const getServerSideProps: GetServerSideProps<GetServerSideReturn> = async ({ query }) => {
-  try {
-    const { sort, q, page } = query;
+  const queryVariables: SearchAnimeVariables = {
+    perPage: 24,
+    page: typeof page === 'string' && !isNaN(parseInt(page, 10)) ? parseInt(page, 10) : 1,
+  };
+  if (typeof sort === 'string') queryVariables.sort = sort;
+  if (typeof q === 'string') queryVariables.search = q;
 
-    const queryVariables: SearchAnimeVariables = {
-      perPage: 24,
-      page: typeof page === 'string' && !isNaN(parseInt(page, 10)) ? parseInt(page, 10) : 1,
-    };
-    if (typeof sort === 'string') queryVariables.sort = sort;
-    if (typeof q === 'string') queryVariables.search = q;
+  const { data } = await apolloClient.query<PaginatedAnimeList>({
+    query: SEARCH_ANIME,
+    variables: queryVariables,
+  });
 
-    const { data } = await apolloClient.query<PaginatedAnimeList>({
-      query: SEARCH_ANIME,
-      variables: queryVariables,
-    });
-
-    return {
-      props: {
-        isError: false,
-        data,
-      },
-    };
-  } catch (error) {
-    return {
-      props: {
-        isError: true,
-        data: null,
-      },
-    };
-  }
+  return {
+    props: {
+      data,
+    },
+  };
 };
