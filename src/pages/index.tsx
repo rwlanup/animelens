@@ -1,8 +1,7 @@
-import { Typography, Container, Grid, Button, Box } from '@mui/material';
+import { Container } from '@mui/material';
 import type { InferGetStaticPropsType, NextPage } from 'next';
 import Head from 'next/head';
-import Link from 'next/link';
-import { AnimeCard } from '../components/anime-card/AnimeCard';
+import { AnimeCardList } from '../components/anime-card-list/AnimeCardList';
 import { SEARCH_ANIME } from '../gql/search-anime';
 import { PaginatedAnimeList } from '../types/anime';
 import { apolloClient } from '../util/apollo-client';
@@ -17,50 +16,17 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ popula
         maxWidth={false}
         sx={{ py: 5 }}
       >
-        <Grid
-          container
-          alignItems="center"
-          justifyContent="space-between"
-          spacing={3}
-        >
-          <Grid item>
-            <Typography
-              variant="h2"
-              component="h1"
-              fontWeight="Bold"
-            >
-              Trending Anime
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Link
-              passHref
-              href="/trending"
-            >
-              <Button variant="outlined">View more</Button>
-            </Link>
-          </Grid>
-        </Grid>
-        <Box sx={{ mt: 4 }}>
-          <Grid
-            container
-            spacing={3}
-          >
-            {trendingAnimes.map((anime) => (
-              <Grid
-                key={anime.id}
-                item
-                xs={12}
-                sm={6}
-                md={4}
-                lg={3}
-                xl={2}
-              >
-                <AnimeCard anime={anime} />
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
+        <AnimeCardList
+          animes={trendingAnimes}
+          title="Trending Anime"
+          url="/trending"
+        />
+        <AnimeCardList
+          sx={{ mt: 10 }}
+          animes={popularAnimes}
+          title="Popular Anime"
+          url="/popular"
+        />
       </Container>
     </>
   );

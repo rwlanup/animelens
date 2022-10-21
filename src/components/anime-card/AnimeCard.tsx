@@ -25,14 +25,23 @@ export const AnimeCard: FC<AnimeCardProps> = ({ anime }) => {
           p: 0,
           overflow: 'hidden',
           display: 'flex',
-          alignItems: 'flex-start',
+          alignItems: 'stretch',
           flexDirection: 'column',
+          border: 1,
+          borderColor: 'primary.50',
           '&:hover,&:focus': {
             bgcolor: 'primary.100',
+            borderColor: 'primary.100',
           },
         }}
       >
-        <Box sx={{ height: 240, width: 1, position: 'relative' }}>
+        <Box
+          sx={{
+            height: 240,
+            width: 1,
+            position: 'relative',
+          }}
+        >
           <Image
             layout="fill"
             priority
@@ -40,22 +49,47 @@ export const AnimeCard: FC<AnimeCardProps> = ({ anime }) => {
             src={anime.coverImage.large}
           />
         </Box>
-        <Box sx={{ p: 3, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', flex: 1 }}>
+        <Box
+          sx={{
+            p: 3,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            flex: 1,
+          }}
+        >
           <Typography
             variant="subtitle"
             component="h3"
           >
             {anime.title.userPreferred}
           </Typography>
-          <Box sx={{ display: 'flex', gap: 1, color: 'grey.600', mt: 1, alignItems: 'center' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              gap: 1,
+              color: 'grey.600',
+              mt: 1,
+              alignItems: 'center',
+            }}
+          >
             <Typography sx={{ textTransform: 'capitalize' }}>{format}</Typography>
             {anime.seasonYear && (
-              <Typography
-                variant="body"
-                component="span"
-              >
-                {anime.seasonYear}
-              </Typography>
+              <>
+                <Typography
+                  variant="body"
+                  component="span"
+                >
+                  |
+                </Typography>
+                <Typography
+                  variant="body"
+                  component="span"
+                >
+                  {' '}
+                  {anime.seasonYear}
+                </Typography>
+              </>
             )}
             {anime.averageScore && (
               <Chip
