@@ -1,5 +1,10 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, Color } from '@mui/material';
+import { dataDisplayTheme } from './data-display-theme';
 import { inputsTheme } from './inputs-theme';
+declare module '@mui/material/styles' {
+  interface PaletteColor extends Color {}
+  interface SimplePaletteColorOptions {}
+}
 
 const baseTheme = createTheme({
   typography: {
@@ -21,7 +26,7 @@ const baseTheme = createTheme({
       '"Noto Color Emoji"',
     ].join(','),
     fontWeightRegular: 400,
-    fontWeightBold: 600,
+    fontWeightBold: 500,
     button: {
       fontWeight: 400,
       textTransform: 'none',
@@ -34,7 +39,6 @@ const baseTheme = createTheme({
   },
 
   palette: {
-    mode: 'dark',
     background: {
       default: '#060101',
       paper: '#060101',
@@ -120,8 +124,8 @@ const baseTheme = createTheme({
       800: '#92400e',
       900: '#78350f',
     },
-    divider: '#4b5563',
+    divider: '#e2e8f0',
   },
 });
 
-export const theme = createTheme(baseTheme, inputsTheme(baseTheme));
+export const theme = createTheme(baseTheme, inputsTheme(baseTheme), dataDisplayTheme(baseTheme));

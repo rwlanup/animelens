@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { AppBar, Toolbar, Box, useMediaQuery, Theme, Button } from '@mui/material';
+import { AppBar, Toolbar, Box, Button } from '@mui/material';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -15,11 +15,9 @@ const NAV_ITEMS: { label: string; link: string }[] = [
 ];
 
 export const Header: FC = () => {
-  const isNotMobile = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
-
   return (
     <AppBar
-      color="transparent"
+      color="default"
       position="sticky"
       elevation={0}
       sx={{
@@ -51,8 +49,7 @@ export const Header: FC = () => {
               href={navItem.link}
             >
               <Button
-                size="small"
-                variant="contained"
+                variant="text"
                 sx={{ ml: 1 }}
               >
                 {navItem.label}

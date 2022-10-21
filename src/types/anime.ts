@@ -3,13 +3,13 @@ import { PaginatedList } from './util';
 export interface AnimeListItem {
   id: number;
   title: {
-    userPreffered: string;
+    userPreferred: string;
   };
   coverImage: {
-    medium: string;
+    large: string;
   };
   format: string;
-  seasonYear: string | null;
+  seasonYear: number | null;
   averageScore: number | null;
 }
 

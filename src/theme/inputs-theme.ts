@@ -37,7 +37,7 @@ export const inputsTheme = (theme: Theme): ThemeOptions => {
         styleOverrides: {
           root: {
             '&:focus': {
-              boxShadow: `0 0 0 4px ${theme.palette.grey[600]}!important`,
+              boxShadow: `0 0 0 6px ${theme.palette.primary[200]}!important`,
             },
           },
         },
