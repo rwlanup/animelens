@@ -7,6 +7,13 @@ let nextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
+  images: {
+    remotePatterns: [
+      {
+        hostname: '**.anilist.co',
+      },
+    ],
+  },
 };
 
 const shouldAnalyzeBundles = process.env.ANALYZE === 'true';

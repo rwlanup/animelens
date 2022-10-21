@@ -6,14 +6,18 @@ import type { AppProps } from 'next/app';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from '../theme';
 import { RootLayout } from '../layouts/RootLayout';
+import { ApolloProvider } from '@apollo/client';
+import { apolloClient } from '../util/apollo-client';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <RootLayout>
-        <Component {...pageProps} />
-      </RootLayout>
+      <ApolloProvider client={apolloClient}>
+        <RootLayout>
+          <Component {...pageProps} />
+        </RootLayout>
+      </ApolloProvider>
     </ThemeProvider>
   );
 }

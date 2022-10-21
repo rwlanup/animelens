@@ -120,6 +120,7 @@ const baseTheme = createTheme({
       800: '#92400e',
       900: '#78350f',
     },
+    divider: '#4b5563',
   },
 });
 
