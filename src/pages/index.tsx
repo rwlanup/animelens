@@ -59,20 +59,20 @@ interface StaticPropsReturns {
 export const getStaticProps: GetStaticProps<StaticPropsReturns> = async () => {
   try {
     const currentYear = new Date().getFullYear();
-    const { data: popularAnimeData } = await apolloClient.query<PaginatedAnimeList>({
-      query: SEARCH_ANIME,
-      variables: { perPage: 12, sort: 'POPULARITY', year: currentYear },
-    });
-
-    const { data: trendingAnimeData } = await apolloClient.query<PaginatedAnimeList>({
-      query: SEARCH_ANIME,
-      variables: { perPage: 12, sort: 'TRENDING', year: currentYear },
-    });
-
-    const { data: topAnimeData } = await apolloClient.query<PaginatedAnimeList>({
-      query: SEARCH_ANIME,
-      variables: { perPage: 12, sort: 'SCORE_DESC', year: currentYear },
-    });
+    const [{ data: popularAnimeData }, { data: trendingAnimeData }, { data: topAnimeData }] = await Promise.all([
+      apolloClient.query<PaginatedAnimeList>({
+        query: SEARCH_ANIME,
+        variables: { perPage: 12, sort: 'POPULARITY', year: currentYear },
+      }),
+      apolloClient.query<PaginatedAnimeList>({
+        query: SEARCH_ANIME,
+        variables: { perPage: 12, sort: 'TRENDING', year: currentYear },
+      }),
+      apolloClient.query<PaginatedAnimeList>({
+        query: SEARCH_ANIME,
+        variables: { perPage: 12, sort: 'SCORE_DESC', year: currentYear },
+      }),
+    ]);
 
     return {
       props: {
