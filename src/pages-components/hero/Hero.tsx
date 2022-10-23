@@ -51,6 +51,7 @@ export const Hero: FC = () => {
                 height={480}
                 width={624}
                 objectFit="contain"
+                alt=""
               />
             </Box>
           </Grid>

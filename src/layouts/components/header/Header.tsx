@@ -42,6 +42,7 @@ export const Header: FC = () => {
               height={48}
               width={48}
               src="/logo.svg"
+              alt="Animelens"
             />
           </Box>
         </Link>

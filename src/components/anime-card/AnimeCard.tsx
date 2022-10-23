@@ -37,8 +37,9 @@ export const AnimeCard: FC<AnimeCardProps> = ({ anime }) => {
       >
         <Box
           sx={{
-            height: 320,
             width: 1,
+            aspectRatio: '2/3',
+            maxHeight: 480,
             position: 'relative',
           }}
         >
@@ -47,6 +48,7 @@ export const AnimeCard: FC<AnimeCardProps> = ({ anime }) => {
             priority
             objectFit="cover"
             src={anime.coverImage.large}
+            alt={anime.title.userPreferred}
           />
         </Box>
         <Box
@@ -86,7 +88,6 @@ export const AnimeCard: FC<AnimeCardProps> = ({ anime }) => {
                   variant="body"
                   component="span"
                 >
-                  {' '}
                   {anime.seasonYear}
                 </Typography>
               </>
