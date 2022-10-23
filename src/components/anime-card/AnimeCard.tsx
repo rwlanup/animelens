@@ -37,7 +37,7 @@ export const AnimeCard: FC<AnimeCardProps> = ({ anime }) => {
       >
         <Box
           sx={{
-            height: 240,
+            height: 320,
             width: 1,
             position: 'relative',
           }}

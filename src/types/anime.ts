@@ -1,5 +1,3 @@
-import { PaginatedList } from './util';
-
 export interface AnimeListItem {
   id: number;
   title: {
@@ -13,8 +11,19 @@ export interface AnimeListItem {
   averageScore: number | null;
 }
 
-type AnimeList = {
-  Page: { media: AnimeListItem[] };
+export type PaginatedAnimeList = {
+  Page: {
+    media: AnimeListItem[];
+    pageInfo: {
+      currentPage: number;
+      hasNextPage: boolean;
+    };
+  };
 };
 
-export type PaginatedAnimeList = PaginatedList<AnimeList>;
+export interface SearchAnimeVariables {
+  search?: string;
+  sort?: string;
+  perPage: number;
+  page: number;
+}
