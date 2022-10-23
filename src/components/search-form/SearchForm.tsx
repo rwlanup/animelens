@@ -39,7 +39,7 @@ export const SearchForm: FC<SearchFormProps> = ({ onSubmit, ...otherProps }) => 
             input: { py: 1.75, pl: 2.5 },
             '.MuiOutlinedInput-notchedOutline': {
               borderColor: 'primary.main',
-              borderWidth: 1,
+              borderWidth: '1px!important',
             },
           },
         }}
