@@ -1,11 +1,10 @@
 import { Container } from '@mui/material';
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next';
 import Head from 'next/head';
+import { getPopularTopAndTrendingAnimeOfYear } from '../api/anime-list';
 import { AnimeCardList } from '../components/anime-card-list/AnimeCardList';
-import { SEARCH_ANIME } from '../gql/search-anime';
 import { Hero } from '../pages-components/hero/Hero';
-import { AnimeListItem, PaginatedAnimeList } from '../types/anime';
-import { apolloClient } from '../util/apollo-client';
+import { AnimeListItem } from '../types/anime';
 
 const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   popularAnimes,
@@ -57,38 +56,10 @@ interface StaticPropsReturns {
 }
 
 export const getStaticProps: GetStaticProps<StaticPropsReturns> = async () => {
-  try {
-    const currentYear = new Date().getFullYear();
-    const [{ data: popularAnimeData }, { data: trendingAnimeData }, { data: topAnimeData }] = await Promise.all([
-      apolloClient.query<PaginatedAnimeList>({
-        query: SEARCH_ANIME,
-        variables: { perPage: 12, sort: 'POPULARITY', year: currentYear },
-      }),
-      apolloClient.query<PaginatedAnimeList>({
-        query: SEARCH_ANIME,
-        variables: { perPage: 12, sort: 'TRENDING', year: currentYear },
-      }),
-      apolloClient.query<PaginatedAnimeList>({
-        query: SEARCH_ANIME,
-        variables: { perPage: 12, sort: 'SCORE_DESC', year: currentYear },
-      }),
-    ]);
+  const animeData = await getPopularTopAndTrendingAnimeOfYear();
 
-    return {
-      props: {
-        popularAnimes: popularAnimeData.Page.media,
-        trendingAnimes: trendingAnimeData.Page.media,
-        topAnimes: topAnimeData.Page.media,
-      },
-      revalidate: 86400, // 86400 = 24*60*60 seconds = 1day
-    };
-  } catch (error) {
-    return {
-      props: {
-        popularAnimes: [] as AnimeListItem[],
-        trendingAnimes: [] as AnimeListItem[],
-        topAnimes: [] as AnimeListItem[],
-      },
-    };
-  }
+  return {
+    props: animeData,
+    revalidate: 86400, // 86400 = 24*60*60 seconds = 1day
+  };
 };

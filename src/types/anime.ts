@@ -27,3 +27,20 @@ export interface SearchAnimeVariables {
   perPage: number;
   page: number;
 }
+
+export interface AnimeDetail extends Omit<AnimeListItem, 'coverImage'> {
+  coverImage: {
+    extraLarge: string;
+  };
+  bannerImage: string;
+  status: string;
+  description: string; // HTML form
+  episodes: number | null;
+  duration: number;
+  genres: string[];
+  synonyms: string[];
+  averageScore: number | null;
+  relations: {
+    nodes: AnimeListItem[];
+  };
+}
