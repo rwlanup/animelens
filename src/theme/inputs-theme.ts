@@ -1,5 +1,4 @@
 import type { Theme, ThemeOptions } from '@mui/material';
-import type {} from '@mui/lab/themeAugmentation';
 
 export const inputsTheme = (theme: Theme): ThemeOptions => {
   return {
@@ -70,13 +69,6 @@ export const inputsTheme = (theme: Theme): ThemeOptions => {
           sizeLarge: {
             padding: theme.spacing(1.5, 6),
           },
-        },
-      },
-
-      MuiLoadingButton: {
-        defaultProps: {
-          disableFocusRipple: true,
-          variant: 'contained',
         },
       },
     },

@@ -62,6 +62,7 @@ export const AnimeDetailDescription: FC<{ anime: AnimeDetail }> = ({ anime }) =>
               layout="fill"
               priority
               objectFit="cover"
+              alt={anime.title.userPreferred}
               src={anime.coverImage.extraLarge}
             />
           </Box>

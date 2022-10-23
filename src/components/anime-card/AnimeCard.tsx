@@ -48,6 +48,7 @@ export const AnimeCard: FC<AnimeCardProps> = ({ anime }) => {
             priority
             objectFit="cover"
             src={anime.coverImage.large}
+            alt={anime.title.userPreferred}
           />
         </Box>
         <Box

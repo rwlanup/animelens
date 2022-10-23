@@ -27,6 +27,7 @@ const AnimeDetailPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> 
             priority
             layout="fill"
             src={anime.bannerImage}
+            alt={`Banner image of ${anime.title.userPreferred}`}
           />
         </Box>
         <AnimeDetailHeader anime={anime} />

@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { AnimeDetail } from '../../types/anime';
-import { Typography, Container, Box, Chip, Grid } from '@mui/material';
+import { Typography, Container, Chip, Grid } from '@mui/material';
 
 export const AnimeDetailHeader: FC<{ anime: AnimeDetail }> = ({ anime }) => {
   return (
