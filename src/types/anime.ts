@@ -32,7 +32,7 @@ export interface AnimeDetail extends Omit<AnimeListItem, 'coverImage'> {
   coverImage: {
     extraLarge: string;
   };
-  bannerImage: string;
+  bannerImage: string | null;
   status: string;
   description: string; // HTML form
   episodes: number | null;

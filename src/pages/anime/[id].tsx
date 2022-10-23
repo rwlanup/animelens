@@ -22,14 +22,16 @@ const AnimeDetailPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> 
         />
       </Head>
       <Box>
-        <Box sx={{ width: 1, aspectRatio: '19/4', position: 'relative' }}>
-          <Image
-            priority
-            layout="fill"
-            src={anime.bannerImage}
-            alt={`Banner image of ${anime.title.userPreferred}`}
-          />
-        </Box>
+        {anime.bannerImage && (
+          <Box sx={{ width: 1, aspectRatio: '19/4', position: 'relative' }}>
+            <Image
+              priority
+              layout="fill"
+              src={anime.bannerImage}
+              alt={`Banner image of ${anime.title.userPreferred}`}
+            />
+          </Box>
+        )}
         <AnimeDetailHeader anime={anime} />
         <AnimeDetailDescription anime={anime} />
         <Container
