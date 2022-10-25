@@ -5,7 +5,7 @@ import { AnimeCardList } from '../components/anime-card-list/AnimeCardList';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { apolloClient } from '../util/apollo-client';
-import { SEARCH_ANIME } from '../gql/search-anime';
+import { ALLOWED_SORT, SEARCH_ANIME } from '../gql/search-anime';
 import { PaginatedAnimeList, SearchAnimeVariables } from '../types/anime';
 import Link from 'next/link';
 import { ChevronLeftOutlined, ChevronRightOutlined } from '@mui/icons-material';
@@ -48,7 +48,7 @@ const SearchPage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps
           content={`Search ${currentAnimeType} animes and get up-to date information about trending and popular animes right now`}
         />
       </Head>
-      <Box sx={{ borderBottom: 4, borderColor: 'primary.main', py: 5, bgcolor: 'primary.50' }}>
+      <Box sx={{ borderBottom: 4, borderColor: 'primary.main', py: 5 }}>
         <Container maxWidth="xl">
           <Typography
             variant="h1"
@@ -97,16 +97,16 @@ const SearchPage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps
 };
 
 export default SearchPage;
-export const getServerSideProps: GetServerSideProps<{ data: PaginatedAnimeList }> = async ({ query }) => {
+export const getServerSideProps: GetServerSideProps<{ data: PaginatedAnimeList }> = async ({ query, res }) => {
+  res.setHeader('Cache-Control', 'public, s-maxage=1800, stale-while-revalidate=86400');
   const { sort, q, page } = query;
 
   const queryVariables: SearchAnimeVariables = {
-    perPage: 24,
+    perPage: 12,
     page: typeof page === 'string' && !isNaN(parseInt(page, 10)) ? parseInt(page, 10) : 1,
   };
-  if (typeof sort === 'string') queryVariables.sort = sort;
+  if (typeof sort === 'string' && ALLOWED_SORT.includes(sort)) queryVariables.sort = sort;
   if (typeof q === 'string') queryVariables.search = q;
-
   const { data } = await apolloClient.query<PaginatedAnimeList>({
     query: SEARCH_ANIME,
     variables: queryVariables,

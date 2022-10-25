@@ -28,19 +28,19 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
         <AnimeCardList
           animes={topAnimes}
           title="Top Anime"
-          url={{ pathname: '/search?sort=SCORE_DESC' }}
+          url={{ pathname: '/search', query: { sort: 'SCORE_DESC' } }}
         />
         <AnimeCardList
           sx={{ mt: 10 }}
           animes={trendingAnimes}
           title="Trending Anime"
-          url={{ pathname: '/search?sort=TRENDING' }}
+          url={{ pathname: '/search', query: { sort: 'TRENDING' } }}
         />
         <AnimeCardList
           sx={{ mt: 10 }}
           animes={popularAnimes}
           title="Popular Anime"
-          url={{ pathname: '/search?sort=POPULARITY' }}
+          url={{ pathname: '/search', query: { sort: 'POPULARITY' } }}
         />
       </Container>
     </>
