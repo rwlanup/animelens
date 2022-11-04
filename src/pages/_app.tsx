@@ -9,6 +9,8 @@ import Router from 'next/router';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { useEffect } from 'react';
+import { apolloClient } from '../util/apollo-client';
+import { ApolloProvider } from '@apollo/client';
 
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
@@ -28,11 +30,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
-      <RootLayout>
-        <Component {...pageProps} />
-      </RootLayout>
-    </ThemeProvider>
+    <ApolloProvider client={apolloClient}>
+      <ThemeProvider theme={theme}>
+        <RootLayout>
+          <Component {...pageProps} />
+        </RootLayout>
+      </ThemeProvider>
+    </ApolloProvider>
   );
 }
 
